@@ -1,16 +1,51 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
+const request = require('request-promise');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const mockResponse = {
     field: 'value',
     field2: 'value2'
 };
 
+const GIPHY_API_KEY = process.env.GIPHY_API_KEY;
+const PIXABAY_API_KEY = process.env.PIXABAY_API_KEY;
+
+const getGiphyData = (query) => {
+    return request(`http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${GIPHY_API_KEY}&limit=1`).then(data => JSON.parse(data).data);
+}
+
+const getPixabayData = (query) => {
+    return request(`https://pixabay.com/api/?key=${PIXABAY_API_KEY}&q=${query}&image_type=photo&pretty=true&per_page=3`).then(data => JSON.parse(data).hits);
+}
+
+const getAllData = (query, callback) => {
+    const giphyData = getGiphyData(query);
+    const pixabayData = getPixabayData(query);
+
+    const allSources = [
+        giphyData,
+        pixabayData,
+    ];
+
+    Promise.all(allSources).then(data => {
+        return callback([].concat.apply([], data));
+    });
+}
+
 app.get('/api', (req, res) => {
-    res.send(mockResponse);
+    if (!!req.query.q) {
+        getAllData(req.query.q, (response) => {
+            res.send(response);
+        });
+        // TODO: Add error response
+    } else {
+        res.send(mockResponse); // TODO: Default response
+    }
 });
 
-app.listen(port, function () {
-    console.log('App running on port: ' + port);
+app.listen(port, () => {
+    console.log(`App running on port: ${port}`);
 });
