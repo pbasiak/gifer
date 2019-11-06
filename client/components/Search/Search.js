@@ -3,7 +3,7 @@ import { Container } from '../styled/Container';
 import SearchInput from './SearchInput';
 import SearchResults from './SearchResults';
 import { Box } from '../styled/Box';
-import SearchResultItem from './SearchResultsItem';
+import SearchResultsItem from './SearchResultsItem';
 import { getAllData } from '../../api/allData';
 
 export default class Search extends Component {
@@ -44,14 +44,14 @@ export default class Search extends Component {
         const imageItemsData = imageItems.map((item) => {
             if (!!item.url) {
                 return (
-                    <SearchResultItem
+                    <SearchResultsItem
                         key={item.images.downsized.url}
                         imageUrl={item.images.downsized.url} 
                     />
                 );
             } else {
                 return (
-                    <SearchResultItem
+                    <SearchResultsItem
                         key={item.previewURL}
                         imageUrl={item.previewURL}
                     />

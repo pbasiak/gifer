@@ -3,7 +3,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { SSearchResultsImage } from './styled/SSearchResultsImage';
 import { Growler } from '../styled/Growler';
 
-export default function SearchResultItem(props) {
+export default function SearchResultsItem(props) {
 
     const { imageUrl } = props;
     const [isCopied, setIsCopied] = React.useState(false);
