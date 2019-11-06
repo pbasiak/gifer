@@ -1,10 +1,13 @@
 import React from 'react';
+import { SSearchResultsImage } from './styled/SSearchResultsImage';
 
 export default function SearchResultItem(props) {
 
+    const { imageUrl } = props;
+
     return (
         <React.Fragment>
-            <img src="https://media.giphy.com/media/yxF4HmDIXw83S/giphy.gif" alt=""/>
+            <SSearchResultsImage src={imageUrl} alt=""/>
         </React.Fragment>
     );
 }

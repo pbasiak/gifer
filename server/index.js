@@ -17,7 +17,7 @@ const GIPHY_API_KEY = process.env.GIPHY_API_KEY;
 const PIXABAY_API_KEY = process.env.PIXABAY_API_KEY;
 
 const getGiphyData = (query) => {
-    return request(`http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${GIPHY_API_KEY}&limit=1`).then(data => JSON.parse(data).data);
+    return request(`http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${GIPHY_API_KEY}&limit=5`).then(data => JSON.parse(data).data);
 }
 
 const getPixabayData = (query) => {

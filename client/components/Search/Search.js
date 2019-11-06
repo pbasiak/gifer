@@ -4,30 +4,68 @@ import SearchInput from './SearchInput';
 import SearchResults from './SearchResults';
 import { Box } from '../styled/Box';
 import SearchResultItem from './SearchResultsItem';
+import { getAllData } from '../../api/allData';
 
 export default class Search extends Component {
 
     constructor() {
         super();
 
-        this.state = {};
+        this.state = {
+            imageItems: [],
+            isImagesLoaded: false,
+        };
     }
 
-    onChange = (field) => {
-        console.log(field);
+    onInputValueChange = (value) => {
+        this.setState({
+            searchInputValue: value.target.value
+        });
+    }
 
-        this.setState({ searchInputValue: field.target.value });
+    handleSubmit = () => {
+        const {searchInputValue} = this.state;
+
+        if (searchInputValue) {
+            getAllData({
+                query: searchInputValue,
+                callback: (response) => {
+                    this.setState({
+                        imageItems: response.data,
+                        isImagesLoaded: true,
+                    });
+                }
+            });
+        }
     }
 
     render() {
-        const {searchInputValue} = this.state;
-        const items = <SearchResultItem />;
+        const { imageItems, isImagesLoaded } = this.state;
+        const imageItemsData = imageItems.map((item) => {
+            if (!!item.url) {
+                return (
+                    <SearchResultItem
+                        key={item.images.downsized.url}
+                        imageUrl={item.images.downsized.url} 
+                    />
+                );
+            } else {
+                return (
+                    <SearchResultItem
+                        key={item.previewURL}
+                        imageUrl={item.previewURL}
+                    />
+                );
+            }
+        });
 
         return (
             <Container align="center">
                 <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-                    <SearchInput onChange={this.onChange} />
-                    <SearchResults data={items}/>
+                    <SearchInput onSubmit={this.handleSubmit} onInputValueChange={this.onInputValueChange} />
+                    {
+                        isImagesLoaded && <SearchResults>{imageItemsData}</SearchResults>
+                    }
                 </Box>
             </Container>
         );
