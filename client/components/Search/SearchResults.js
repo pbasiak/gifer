@@ -7,7 +7,9 @@ export default function SearchResults(props) {
 
     return (
         <Box display="flex" flexWrap="wrap" justifyContent="center" alignItems="flex-start">
-            {children}
+            {
+                !!children.length ? children : 'Not found'
+            }
         </Box>
     );
 }
