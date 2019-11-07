@@ -5,6 +5,7 @@ App created with webpack & nodejs & react
 ## Run project
 
 1. Install `npm install`
+2. Add `.env` file with **GIPHY_API_KEY** and **PIXABAY_API_KEY**
 2. Run `npm start`
 
 ## Available commands
