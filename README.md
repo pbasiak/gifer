@@ -15,3 +15,5 @@ App created with webpack & nodejs & react
 
 `npm test` - run tests
 
+## Preview
+![Preview](https://github.com/pbasiak/gifer/blob/master/preview.jpg)
