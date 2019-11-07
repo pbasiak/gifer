@@ -4,8 +4,8 @@ const port = process.env.PORT || 3000;
 const request = require('request-promise');
 const path = require('path');
 const dotenv = require('dotenv');
-const DIST_DIR = path.join(__dirname, '../dist'); // NEW
-const HTML_FILE = path.join(DIST_DIR, 'index.html'); // NEW
+const DIST_DIR = path.join(__dirname, '../dist');
+const HTML_FILE = path.join(DIST_DIR, 'index.html');
 dotenv.config();
 
 const mockResponse = {
